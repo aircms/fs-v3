@@ -21,7 +21,7 @@ return Config::defaults(
     ],
   ],
   ui: fn() => Config::ui(
-    domain: 'fs',
+    domain: 'fs*',
     strictRoutes: false,
   ),
 );
