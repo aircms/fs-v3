@@ -1,0 +1,66 @@
+<?php
+$theme = $this->theme ?? 'dark';
+
+/** @var string $select */
+$select = $this->select;
+
+/** @var string $lang */
+$lang = $this->lang;
+?>
+<!DOCTYPE html>
+<html lang="<?php echo $lang; ?>">
+<head>
+  <meta charset="utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'/>
+  <title>Drive</title>
+  <?php echo $this->asset([
+    'https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap',
+
+    'air/vendor/fa/css/all.css',
+    'air/vendor/mdb/light.css',
+    'air/vendor/mdb/mdb.js',
+    'air/vendor/jq.js',
+    'air/vendor/jq-ui/jquery-ui.js',
+    'air/vendor/jq-ui/jquery-ui.css',
+    'air/vendor/wheelzoom.js',
+
+    'air/css/blur.css',
+    'air/css/max-lines.css',
+    'air/css/scrollbar.css',
+    'air/css/transition.css',
+
+    'air/js/mdb.js',
+    'air/js/clipboard.js',
+    'air/js/modal/modal.js',
+    'air/js/wait.js',
+    'air/js/bg-image.js',
+    'air/js/context-menu.js',
+
+    'custom.css',
+    'custom.js',
+  ]); ?>
+  <script>
+    const locale = (key) => (<?php echo json_encode(\App\Service\Locale::phrases(), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT); ?>)[key] || key;
+  </script>
+</head>
+<body data-mdb-theme="<?php echo $theme; ?>" data-file-mode-select="<?php echo $select; ?>">
+<main class="vh-100 vw-100 p-3 pb-0 overflow-hidden d-flex flex-column">
+  <div class="card w-100">
+    <div class="card-body p-3">
+      <div class="d-flex align-items-center">
+        <div class="pe-3 w-100">
+          <?php echo $this->partial('common/search'); ?>
+        </div>
+        <div>
+          <?php echo $this->partial('common/upload'); ?>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="overflow-x-hidden overflow-y-visible h-100" data-list>
+    <?php echo $this->getContent(); ?>
+  </div>
+</main>
+</body>
+</html>

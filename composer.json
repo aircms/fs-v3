@@ -1,0 +1,36 @@
+{
+  "name": "aircms/fs-v3",
+  "authors": [
+    {
+      "name": "Edward Komissarov",
+      "email": "execrot@gmail.com"
+    }
+  ],
+  "repositories": [
+    {
+      "type": "git",
+      "url": "https://github.com/aircms/core-v3.git"
+    }
+  ],
+  "require": {
+    "ext-fileinfo": "*",
+    "ext-gd": "*",
+    "ext-imagick": "*",
+    "aircms/core-v3": "dev-main",
+    "ralouphie/mimey": "*",
+    "php-ffmpeg/php-ffmpeg": "*"
+  },
+  "autoload": {
+    "files": [
+      "vendor/aircms/core-v3/src/Air/View/Shorts/shorts.php"
+    ]
+  },
+  "scripts": {
+    "assets": [
+      "ln -sfn ../../../vendor/aircms/core-v3/assets www/assets/ui/air"
+    ],
+    "storage": [
+      "mkdir www/storage && chown -R www-data:www-data www/storage"
+    ]
+  }
+}

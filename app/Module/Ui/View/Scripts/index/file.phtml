@@ -1,0 +1,72 @@
+<?php
+
+use App\Service\Item;
+
+/** @var Item $file */
+$file = $this->file;
+
+$id = uniqid();
+?>
+<div class="card h-100 position-relative user-select-none border border-secondary-subtle"
+     role="button"
+     data-admin-item-size="<?php echo $file->size; ?>"
+     data-admin-item-path="<?php echo $file->path; ?>"
+     ondblclick="viewFile('<?php echo $file->path; ?>')"
+     data-admin-contextmenu="<?php echo $id; ?>">
+
+  <div class="ratio ratio-16x9">
+    <div class="w-100 h-100 bg-image position-absolute" data-admin-async-image="<?php echo $file->thumbnailUrl; ?>">
+    </div>
+  </div>
+
+  <span class="badge badge-light text-muted">
+    <?php echo $file->mime; ?>
+  </span>
+
+  <ul class="dropdown-menu dropdown-contextmenu position-absolute top-0 left-0 m-0 shadow-5-strong"
+      data-admin-contextmenu-target="<?php echo $id; ?>">
+    <li class="d-none" data-file-mode-select-item>
+      <a class="dropdown-item"
+         role="button"
+         onclick="selectFile(<?php echo $file->toJSON(); ?>)">
+        <i class="fas fa-check me-1"></i> <b><?php echo \App\Service\Locale::t('Select'); ?></b>
+      </a>
+    </li>
+    <li>
+      <a class="dropdown-item" role="button" onclick="viewFile('<?php echo $file->path; ?>')">
+        <i class="fas fa-eye me-1"></i> <b><?php echo \App\Service\Locale::t('View'); ?></b>
+      </a>
+    </li>
+    <li>
+      <a class="dropdown-item" role="button" onclick="copyToClipboard('<?php echo $file->url; ?>')">
+        <i class="fas fa-copy me-1"></i> <?php echo \App\Service\Locale::t('Copy URL'); ?>
+      </a>
+    </li>
+    <li>
+      <a class="dropdown-item" role="button" onclick="removeFile('<?php echo $file->path; ?>')">
+        <i class="fas fa-trash me-1"></i> <?php echo \App\Service\Locale::t('Remove?'); ?>
+      </a>
+    </li>
+    <li>
+      <hr class="dropdown-divider mt-0"/>
+    </li>
+    <li class="px-2 pb-2">
+      <div class="d-flex justify-content-between small">
+        <div class="text-muted"><?php echo \App\Service\Locale::t('Size'); ?>:</div>
+        <div class="text-muted fw-bold"><?php echo $file->getFormattedSize(); ?></div>
+      </div>
+      <?php if (isset($file->dims)) : ?>
+        <div class="d-flex justify-content-between small">
+          <div class="text-muted"><?php echo \App\Service\Locale::t('Dims'); ?>:</div>
+          <div class="text-muted fw-bold">
+            <?php echo $file->dims['width']; ?> x <?php echo $file->dims['height']; ?>
+          </div>
+        </div>
+      <?php endif; ?>
+      <div class="d-flex justify-content-between small">
+        <div class="text-muted"><?php echo \App\Service\Locale::t('Time'); ?>:</div>
+        <div class="text-muted fw-bold"><?php echo date('d-m-y H:i', $file->time); ?></div>
+      </div>
+    </li>
+  </ul>
+</div>

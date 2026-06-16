@@ -1,0 +1,35 @@
+Header always set Access-Control-Allow-Origin "*"
+Header always set Access-Control-Allow-Methods "POST, GET, OPTIONS, HEAD"
+Header always set Access-Control-Allow-Headers "x-requested-with"
+Options -Indexes
+Header always set Keep-Alive "timeout=50, max=1000"
+
+RewriteEngine On
+RewriteCond %{REQUEST_METHOD} OPTIONS
+RewriteRule .* / [R=200,L]
+
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} -s [OR]
+RewriteCond %{REQUEST_FILENAME} -l [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^.*$ - [NC,L]
+RewriteRule ^.*$ index.php [NC,L]
+
+<filesMatch "\.(ico|gif|jpg|png|jpeg|pdf|tgs|webp|mp4|avif)$">
+  ExpiresActive On
+
+  ExpiresByType image/avif "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/gif "access plus 1 year"
+
+  Header set Cache-Control "public, max-age=31536000, immutable"
+</filesMatch>
+
+AddOutputFilterByType DEFLATE image/webp
+AddOutputFilterByType DEFLATE image/avif
+AddOutputFilterByType DEFLATE image/jpeg
+AddOutputFilterByType DEFLATE image/png
+AddOutputFilterByType DEFLATE image/jpg
+AddOutputFilterByType DEFLATE image/svg+xml

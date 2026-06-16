@@ -1,0 +1,28 @@
+<div class="modal-body">
+  <div class="p-2 border rounded-5 bg-body-tertiary mb-3">
+    <?php echo $this->partial('common/breadcrumbs'); ?>
+  </div>
+  <div class="ratio ratio-21x9 position-relative mb-1" role="button">
+    <div
+      class="card overflow-hidden rounded-8 w-100 h-100 d-flex align-items-center justify-content-center border border-dark bg-body-tertiary">
+      <i class="fas fa-cloud-arrow-up fs-1 text-info"></i><br>
+      <?php echo \App\Service\Locale::t('Drag&Drop or click to upload file'); ?>
+      <input class="opacity-0 position-absolute top-0 start-0 end-0 bottom-0 form-control form-control-lg"
+             type="file"
+             data-files
+             multiple/>
+      <div class="position-absolute start-0 end-0 bottom-0 bg-primary opacity-30 upload-progress" data-progress></div>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <div class="row gx-0 w-100">
+    <div class="col-6 error-message text-danger text-break" data-error>
+    </div>
+    <div class="col-6 text-end">
+      <a role="button" class="btn btn-primary" data-mdb-dismiss="modal" data-mdb-ripple-init>
+        <?php echo \App\Service\Locale::t('Close'); ?>
+      </a>
+    </div>
+  </div>
+</div>

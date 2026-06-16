@@ -1,0 +1,31 @@
+<form onsubmit="createFolder(true); return false;" data-createfolder-form>
+  <div class="modal-body">
+    <div class="p-2 border rounded-5 bg-body-tertiary mb-4">
+      <?php echo $this->partial('common/breadcrumbs'); ?>
+    </div>
+    <div class="w-100 d-flex mb-1">
+      <div class="text-warning me-3">
+        <i class="fas fa-folder fa-2x"></i>
+      </div>
+      <div class="form-outline" data-mdb-input-init>
+        <input type="text" id="folderName" class="form-control" data-foldername/>
+        <label class="form-label" for="folderName"><?php echo \App\Service\Locale::t('Type folder name'); ?></label>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <div class="row gx-0 w-100">
+      <div class="col-4 error-message text-danger text-break" data-error>
+      </div>
+      <div class="col-8 text-end">
+        <button type="submit" class="btn btn-primary" data-mdb-ripple-init>
+          <i class="fas fa-plus me-1"></i>
+          <?php echo \App\Service\Locale::t('Create'); ?>
+        </button>
+        <a role="button" class="btn btn-secondary" data-mdb-dismiss="modal" data-mdb-ripple-init>
+          <?php echo \App\Service\Locale::t('Cancel'); ?>
+        </a>
+      </div>
+    </div>
+  </div>
+</form>

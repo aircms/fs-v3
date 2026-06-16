@@ -1,0 +1,46 @@
+.overflow-x-hidden.overflow-y-visible {
+  margin-right: -3px !important;
+}
+
+.modal.fade .modal-dialog {
+  transition: transform .1s ease-out;
+}
+
+.modal .preview-image {
+  max-height: 73vh;
+  min-height: 73vh;
+  overflow: auto !important;
+
+  img {
+    cursor: zoom-in;
+    max-height: 73vh !important;
+  }
+}
+
+.upload-progress {
+  transition: all 0.2s ease-in-out;
+}
+
+.remove-preview-image {
+  max-height: 65vh;
+}
+
+.folder-size {
+  width: 100px;
+}
+
+.dropdown-menu {
+  --mdb-dropdown-bg: var(--mdb-body-bg);
+  overflow: hidden;
+}
+
+.ui-selectable-helper {
+  border: 1px solid #3b71ca;
+  background-color: rgba(59, 113, 202, 0.1) !important;
+}
+
+.ui-selectable > .ui-selected > div,
+.ui-selectable > .ui-selecting > div {
+  border: 1px solid #3b71ca !important;
+  background-color: rgba(59, 113, 202, 0.42) !important;
+}

@@ -1,0 +1,87 @@
+<?php
+
+use App\Service\Item;
+
+/** @var Item $file */
+$file = $this->file;
+?>
+
+<div class="modal-body">
+
+  <?php if ($file->getSimplifyMime() === 'image') : ?>
+    <div class="rounded-4 overflow-hidden preview-image d-flex justify-content-center align-items-center">
+      <img data-zoom class="mh-100 mw-100 rounded-4" src="<?php echo $file->url; ?>">
+    </div>
+
+  <?php elseif ($file->getSimplifyMime() === 'video') : ?>
+    <div class="ratio ratio-16x9 bg-image rounded-4 overflow-hidden">
+      <video controls autoplay>
+        <source src="<?php echo $file->url; ?>" type="<?php echo $file->mime; ?>">
+      </video>
+    </div>
+
+  <?php elseif ($file->getSimplifyMime() === 'pdf') : ?>
+    <div class="ratio ratio-16x9 bg-image rounded-4 overflow-hidden">
+      <embed src="<?php echo $file->url; ?>" type="application/pdf">
+    </div>
+
+  <?php elseif ($file->getSimplifyMime() === 'text') : ?>
+    <div class="ratio ratio-16x9 bg-image rounded-4 overflow-hidden">
+      <pre class="bg-body p-3"><?php echo file_get_contents($file->realPath); ?></pre>
+    </div>
+
+  <?php else : ?>
+    <div class="rounded-4 overflow-hidden preview-image d-flex justify-content-center align-items-center">
+      <img class="mh-100 mw-100 rounded-4" src="ui/unavailable.png">
+    </div>
+
+  <?php endif; ?>
+
+</div>
+<div class="modal-footer d-flex justify-content-between">
+  <div class="d-flex">
+    <span class="badge badge-info p-2">
+      <?php echo \App\Service\Locale::t('Size'); ?>: <?php echo $file->getFormattedSize(); ?>
+    </span>
+    <span class="badge badge-info ms-2 p-2">
+      <?php echo \App\Service\Locale::t('Dims'); ?>: <?php echo $file->dims['width']; ?> x <?php echo $file->dims['height']; ?>
+    </span>
+    <span class="badge badge-info ms-2 p-2">
+      <?php echo \App\Service\Locale::t('Time'); ?>: <?php echo date('d-m-y H:i', $file->time); ?>
+    </span>
+    <span class="badge badge-info ms-2 p-2">
+      <?php echo \App\Service\Locale::t('Mime'); ?>: <?php echo $file->mime; ?>
+    </span>
+  </div>
+  <div class="d-flex">
+    <button type="button"
+            class="btn btn-info me-2"
+            onclick="copyToClipboard('<?php echo $file->url; ?>')"
+            data-mdb-ripple-init>
+      <i class="fas fa-link me-1"></i>
+      <?php echo \App\Service\Locale::t('Copy URL'); ?>
+    </button>
+    <button type="button"
+            class="btn btn-danger me-2"
+            onclick="removeFile('<?php echo $file->path; ?>')"
+            data-mdb-ripple-init>
+      <i class="fas fa-trash me-1"></i>
+      <?php echo \App\Service\Locale::t('Remove?'); ?>
+    </button>
+    <button type="button"
+            class="btn btn-primary me-2"
+            data-mdb-dismiss="modal"
+            data-mdb-ripple-init>
+      <?php echo \App\Service\Locale::t('Done'); ?>
+    </button>
+    <button type="button"
+            class="btn btn-secondary"
+            onclick="selectFile(<?php echo $file->toJSON(); ?>)"
+    "
+    data-file-mode-select-item
+    data-mdb-ripple-init>
+    <i class="fas fa-check me-1"></i>
+    <?php echo \App\Service\Locale::t('Select'); ?>
+    </button>
+  </div>
+</div>

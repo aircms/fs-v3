@@ -1,0 +1,42 @@
+<?php
+
+use App\Service\Item;
+
+/** @var Item $folder */
+$folder = $this->folder;
+
+$id = uniqid();
+
+?>
+<div class="card border p-2 bg-body-tertiary rounded-4 h-100 position-relative user-select-none"
+     role="button"
+     data-admin-item-size="<?php echo $folder->size; ?>"
+     data-folder-item-selectable
+     data-admin-item-path="<?php echo $folder->path; ?>"
+     data-admin-contextmenu="<?php echo $id; ?>"
+     ondblclick="openFolder('<?php echo $folder->path; ?>')">
+
+  <i class="fas fa-folder fa-2x text-warning position-absolute top-0 end-0 pt-1 pe-2 opacity-30"></i>
+
+  <span class="small max-lines-2 pe-4">
+    <?php echo $folder->name; ?>
+  </span>
+
+  <ul class="dropdown-menu position-absolute top-0 left-0 m-0 shadow-5-strong"
+      data-admin-contextmenu-target="<?php echo $id; ?>">
+    <li>
+      <a class="dropdown-item" role="button" onclick="removeFolder('<?php echo $folder->path; ?>')">
+        <i class="fas fa-trash me-1"></i> <?php echo \App\Service\Locale::t('Remove?'); ?>
+      </a>
+    </li>
+    <li>
+      <hr class="dropdown-divider mt-0"/>
+    </li>
+    <li class="px-2 pb-2">
+      <div class="d-flex justify-content-between small">
+        <div class="text-muted"><?php echo \App\Service\Locale::t('Size'); ?>:</div>
+        <div class="text-muted fw-bold"><?php echo $folder->getFormattedSize(); ?></div>
+      </div>
+    </li>
+  </ul>
+</div>

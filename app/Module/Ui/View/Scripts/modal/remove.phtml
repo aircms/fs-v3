@@ -1,0 +1,50 @@
+<?php
+
+use App\Service\Item;
+
+/** @var Item $file */
+$file = $this->file;
+?>
+
+<div class="modal-body">
+
+  <?php if (str_contains($file->mime, 'image/')) : ?>
+    <div class="rounded-4 overflow-hidden text-center">
+      <img class="h-auto w-auto mw-100 rounded-4 remove-preview-image" src="<?php echo $file->url; ?>">
+    </div>
+
+  <?php elseif (str_contains($file->mime, 'video/')) : ?>
+    <div class="ratio ratio-16x9 bg-image rounded-4 overflow-hidden">
+      <video controls autoplay>
+        <source src="<?php echo $file->url; ?>" type="<?php echo $file->mime; ?>">
+      </video>
+    </div>
+
+  <?php endif; ?>
+
+</div>
+<div class="modal-footer d-flex justify-content-between">
+  <div class="d-flex flex-column">
+    <span class="badge badge-primary text-start">
+      <?php echo \App\Service\Locale::t('Size'); ?>: <?php echo $file->getFormattedSize(); ?>
+    </span>
+    <span class="badge badge-primary mt-2 text-start">
+      <?php echo \App\Service\Locale::t('Dims'); ?>: <?php echo $file->dims['width']; ?> x <?php echo $file->dims['height']; ?>
+    </span>
+    <span class="badge badge-primary mt-2 text-start">
+      <?php echo \App\Service\Locale::t('Time'); ?>: <?php echo date('d-m-y H:i', $file->time); ?>
+    </span>
+  </div>
+  <div class="d-flex">
+    <button type="button" class="btn btn-danger me-2"
+            onclick="removeFile('<?php echo $file->path; ?>', true)"
+            data-mdb-ripple-init><?php echo \App\Service\Locale::t('Remove'); ?>
+    </button>
+    <button type="button"
+            class="btn btn-primary"
+            data-mdb-dismiss="modal"
+            data-mdb-ripple-init>
+      <?php echo \App\Service\Locale::t('No'); ?>
+    </button>
+  </div>
+</div>

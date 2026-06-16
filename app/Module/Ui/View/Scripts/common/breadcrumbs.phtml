@@ -1,0 +1,27 @@
+<?php
+
+use App\Service\Fs;
+
+$workingPath = $this->workingPath;
+
+/** @var array $path */
+$path = array_filter(explode('/', $workingPath));
+?>
+<nav aria-label="breadcrumb" class="d-flex justify-content-between align-items-center">
+  <ol class="breadcrumb m-0 user-select-none">
+    <?php foreach ($path as $index => $item) : ?>
+      <?php if ($index < count($path)) : ?>
+        <li class="breadcrumb-item small">
+          <a onclick="openFolder('<?php echo Fs::ROOT . implode('/', array_slice($path, 0, $index)); ?>')"
+             role="button">
+            <?php echo $item; ?>
+          </a>
+        </li>
+      <?php else: ?>
+        <li class="breadcrumb-item active small" aria-current="page">
+          <?php echo $item; ?>
+        </li>
+      <?php endif; ?>
+    <?php endforeach; ?>
+  </ol>
+</nav>

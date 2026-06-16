@@ -1,0 +1,11 @@
+<form onsubmit="searchFiles(); return false;">
+  <div class="input-group">
+    <div class="form-outline" data-mdb-input-init>
+      <input type="search" id="query" class="form-control" data-search/>
+      <label class="form-label" for="query"><?php echo \App\Service\Locale::t('Search'); ?></label>
+    </div>
+    <button type="submit" class="btn btn-primary px-3" data-mdb-ripple-init>
+      <i class="fas fa-search"></i>
+    </button>
+  </div>
+</form>
